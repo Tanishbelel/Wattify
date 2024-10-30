@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wattify - Smart Energy Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0A0A0A;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: #BFFF00;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #BFFF00;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .notify-btn {
+            background: #BFFF00;
+            border: none;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .notify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(191, 255, 0, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0A0A0A 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #fff, #BFFF00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 900px;
+            margin: 0 auto 24px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .searchBox {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 5px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .searchInput {
+            background: none;
+            border: none;
+            color: white;
+            padding: 15px 24px;
+            flex: 1;
+            font-size: 16px;
+        }
+
+        .searchInput::placeholder {
+            color: #888;
+        }
+
+        .searchButton {
+            background-color: #BFFF00;
+            border: none;
+            color: #000;
+            padding: 12px 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .searchButton:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #0d0d0d;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 60px;
+            color: #fff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #BFFF00, transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .box:hover::before {
+            transform: translateX(100%);
+        }
+
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .box .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #BFFF00;
+        }
+
+        .box p {
+            color: #888;
+            line-height: 1.6;
+            margin-top: 16px;
+        }
+
+        /* Analytics Section */
+        .analytics {
+            padding: 100px 0;
+            background: #080808;
+        }
+
+        .analytics-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .analytics-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .analytics-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .growth-chart {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            height: 200px;
+            margin-bottom: 24px;
+        }
+
+        .chart-title {
+            color: #BFFF00;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .notification {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .bolt {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bolt-icon {
+            color: #BFFF00;
+            font-size: 24px;
+        }
+
+        .notification-content .badge {
+            color: #BFFF00;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0d0d0d;
+            padding: 80px 0 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 64px;
+        }
+
+        .footer-about h2 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        .footer-about p {
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .footer-links h2 {
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 24px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #BFFF00;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            background: #BFFF00;
+        }
+
+        .social-icons img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+                padding: 0 20px;
+            }
+
+            .hero p {
+                font-size: 18px;
+                padding: 0 20px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">Watt<span>ify</span></a>
+            <nav>
+                <a href="dash.html">Dashboard</a>
+                <a href="#">How it Works</a>
+                <a href="#">Testimonials</a>
+                <a href="faq.html">FAQs</a>
+            </nav>
+            <button class="notify-btn">Get Started</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Smart Energy Solutions for a Greener Tomorrow</h1>
+        <p>Monitor, manage, and optimize your energy consumption with our intelligent platform. Join thousands of households making a difference.</p>
+        <div class="search-container">
+            <div class="searchBox">
+                <input class="searchInput" type="email" placeholder="Enter your email address">
+                <button class="searchButton">Get Started</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2 class="section-title">Why Choose Wattify</h2>
+        <div class="container">
+            <div class="box">
+                <span class="title">Smart Control</span>
+                <p>Take control of your home appliances with a single tap. Monitor and manage your devices from anywhere, anytime.</p>
+            </div>
+            <div class="box">
+                <span class="title">Real-time Insights</span>
+                <p>Get detailed analytics and insights about your energy consumption patterns. Make informed decisions to optimize usage.</p>
+            </div>
+            <div class="box">
+                <span class="title">Cost Savings</span>
+                <p>Reduce your energy bills with intelligent scheduling and automated optimization of your appliances.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="analytics">
+        <h2 class="section-title">Real-Time Analytics</h2>
+        <div class="analytics-container">
+            <div class="analytics-card">
+                <div class="growth-chart">
+                    <div class="chart-title">Energy Usage</div>
+                    <div class="bar-chart">
+                        <!-- Chart content -->
+                    </div>
+                </div>
+                <h3>Usage Patterns</h3>
+                <p>Track your daily energy consumption patterns and identify optimization opportunities.</p>
+            </div>
+            <div class="analytics-card">
+                <div class="notification">
+                    <div class="bolt">
+                        <div class="bolt-icon">⚡</div>
+                    </div>
+                    <div class="notification-content">
+                        <div class="badge">LIVE</div>
+                        <div class="title">Smart Insights</div>
+                    </div>
+                </div>
+                <h3>Intelligent Monitoring</h3>
+                <p>Get real-time alerts and recommendations for energy optimization.</p>
+            </div>
+            <div class="analytics-card">
+                <div class="growth-chart">
+                    <div class="chart-title">Savings Growth</div>
+                    <!-- Chart content -->
+                </div>
+                <h3>Cost Analysis</h3>
+                <p>View your savings and environmental impact in real-time.</p>
+            </div>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #1e1e1e;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.card {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px;
+    flex-basis: calc(30% - 30px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 100px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+}
+
+h2 {
+    border-bottom: 2px solid #ff9800;
+    padding-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.chart {
+    width: 100%;
+    height: auto; /* Allows responsive height */
+}
+
+.alert {
+    color: #ff9800;
+}
+
+ul {
+    list-style-type: none; /* Remove bullet points */
+    padding-left: 0; /* Remove default padding */
+}
+
+li {
+    background-color: #2a2a2a; /* Darker background for list items */
+    margin-bottom: 10px; /* Space between items */
+    padding: 10px; /* Padding inside list items */
+    border-radius: 5px; /* Rounded corners */
+}
+header {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: #BFFF00;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #BFFF00;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .notify-btn {
+            background: #BFFF00;
+            border: none;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .notify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(191, 255, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">Watt<span>ify</span></a>
+            <nav>
+                <a href="dash.html">Dashboard</a>
+                <a href="#">How it Works</a>
+                <a href="#">Testimonials</a>
+                <a href="#">FAQs</a>
+            </nav>
+            <button class="notify-btn">Get Started</button>
+        </div>
+    </header>
+
+<div class="container">
+    <div class="card">
+        <h2>Overview</h2>
+        <canvas id="overviewChart" class="chart"></canvas>
+        <p>Total Consumption This Month: $<span id="monthlyCost">50</span></p>
+        <p>Total Savings This Year: $<span id="yearlySavings">200</span></p>
+    </div>
+
+    <div class="card">
+        <h2>Appliance Insights</h2>
+        <canvas id="applianceChart" class="chart"></canvas>
+        <p>Compare actual vs optimal usage.</p>
+    </div>
+
+    <div class="card">
+        <h2>Optimization Suggestions</h2>
+        <ul id="suggestionsList">
+            <li>Reduce standby power usage.</li>
+            <li>Schedule laundry during off-peak hours.</li>
+            <li>Consider upgrading to energy-efficient appliances.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>Alerts and Notifications</h2>
+        <p class="alert">High energy usage detected!</p>
+    </div>
+
+    <div class="card">
+        <h2>Financial Summary</h2>
+        <p>Total Savings from Energy Efficiency Practices: $<span id="totalSavings">150</span></p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctxOverview = document.getElementById('overviewChart').getContext('2d');
+    const overviewChart = new Chart(ctxOverview, {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+                label: 'Energy Consumption ($)',
+                data: [15, 12, 18, 5],
+                borderColor: '#ff9800',
+                fill: false,
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const ctxAppliance = document.getElementById('applianceChart').getContext('2d');
+    const applianceChart = new Chart(ctxAppliance, {
+        type: 'bar',
+        data: {
+            labels: ['Fridge', 'Washing Machine', 'Heater'],
+            datasets: [{
+                label: 'Actual Usage (kWh)',
+                data: [30, 20, 50],
+                backgroundColor: '#ff9800'
+            }, {
+                label: 'Optimal Usage (kWh)',
+                data: [25, 15, 40],
+                backgroundColor: '#4caf50'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero:true
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
