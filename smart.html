@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0A0A0A;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .control-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .control-panel h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #BFFF00;
+        }
+
+        .appliance-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .appliance-info {
+            text-align: left;
+        }
+
+        .appliance-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .appliance-status {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .control-button {
+            background-color: #BFFF00;
+            border: none;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(191, 255, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="control-panel">
+        <h2>Smart Control</h2>
+        <div class="appliance-card" id="living-room-lights">
+            <div class="appliance-info">
+                <div class="appliance-name">Living Room Lights</div>
+                <div class="appliance-status">Current status: On</div>
+            </div>
+            <button class="control-button" onclick="toggleAppliance('living-room-lights')">Turn Off</button>
+        </div>
+        <div class="appliance-card" id="kitchen-appliances">
+            <div class="appliance-info">
+                <div class="appliance-name">Kitchen Appliances</div>
+                <div class="appliance-status">Current status: Off</div>
+            </div>
+            <button class="control-button" onclick="toggleAppliance('kitchen-appliances')">Turn On</button>
+        </div>
+        <div class="appliance-card" id="ac-unit">
+            <div class="appliance-info">
+                <div class="appliance-name">AC Unit</div>
+                <div class="appliance-status">Current status: On</div>
+            </div>
+            <button class="control-button" onclick="toggleAppliance('ac-unit')">Turn Off</button>
+        </div>
+    </div>
+
+    <script>
+        // Toggle function for appliance status
+        function toggleAppliance(applianceId) {
+            const applianceCard = document.getElementById(applianceId);
+            const applianceStatus = applianceCard.querySelector('.appliance-status');
+            const controlButton = applianceCard.querySelector('.control-button');
+
+            // Check current status and toggle
+            if (applianceStatus.textContent.includes('On')) {
+                applianceStatus.textContent = 'Current status: Off';
+                controlButton.textContent = 'Turn On';
+            } else {
+                applianceStatus.textContent = 'Current status: On';
+                controlButton.textContent = 'Turn Off';
+            }
+        }
+    </script>
+</body>
+</html>

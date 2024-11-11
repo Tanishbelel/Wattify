@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy-Saving Chatbot</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+}
+
+.chat-container {
+    width: 400px;
+    background-color: #2e2e2e;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.chat-header {
+    background-color: #333333;
+    padding: 16px;
+    color: #bfff00;
+    text-align: center;
+}
+
+.chat-box {
+    padding: 20px;
+    height: 300px;
+    overflow-y: auto;
+    background-color: #2e2e2e;
+}
+
+.chat-message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    width: fit-content;
+    max-width: 70%;
+}
+
+.bot-message {
+    background-color: #444;
+    color: #bfff00;
+    align-self: flex-start;
+}
+
+.user-message {
+    background-color: #bfff00;
+    color: #1e1e1e;
+    align-self: flex-end;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #444;
+    background-color: #333;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #444;
+    color: #f1f1f1;
+}
+
+.chat-input input::placeholder {
+    color: #888;
+}
+
+.chat-input button {
+    padding: 10px 20px;
+    background-color: #bfff00;
+    color: #1e1e1e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat-input button:hover {
+    background-color: #a5e600;
+}
+
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Energy-Saving Assistant</h2>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="chat-message bot-message">Hi! I'm here to help with energy-saving tips. Ask me anything about saving energy!</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type your question here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const energySavingTips = {
+    "lighting": "Switch to LED lights and turn off lights when not in use.",
+    "heating": "Lower your thermostat by a few degrees and use programmable thermostats.",
+    "appliances": "Use energy-efficient appliances and unplug devices when they’re not in use.",
+    "water": "Take shorter showers and fix any leaky faucets.",
+    "insulation": "Insulate your home to reduce heating and cooling needs.",
+    "general": "Use energy wisely: switch off devices, use smart thermostats, and adopt a more sustainable lifestyle.",
+};
+
+function getBotResponse(input) {
+    input = input.toLowerCase();
+    if (input.includes("light") || input.includes("led")) {
+        return energySavingTips["lighting"];
+    } else if (input.includes("heat") || input.includes("thermostat")) {
+        return energySavingTips["heating"];
+    } else if (input.includes("appliance") || input.includes("device")) {
+        return energySavingTips["appliances"];
+    } else if (input.includes("water") || input.includes("shower")) {
+        return energySavingTips["water"];
+    } else if (input.includes("insulation") || input.includes("insulate")) {
+        return energySavingTips["insulation"];
+    } else {
+        return energySavingTips["general"];
+    }
+}
+
+function sendMessage() {
+    const userInput = document.getElementById("user-input").value;
+    if (userInput.trim() === "") return;
+
+    const userMessage = document.createElement("div");
+    userMessage.className = "chat-message user-message";
+    userMessage.textContent = userInput;
+    document.getElementById("chat-box").appendChild(userMessage);
+
+    document.getElementById("user-input").value = "";
+
+    const botMessage = document.createElement("div");
+    botMessage.className = "chat-message bot-message";
+    botMessage.textContent = getBotResponse(userInput);
+    document.getElementById("chat-box").appendChild(botMessage);
+
+    document.getElementById("chat-box").scrollTop = document.getElementById("chat-box").scrollHeight;
+}
+
+    </script>
+</body>
+</html>
